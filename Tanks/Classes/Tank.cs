@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Tanks.Classes
 {
@@ -20,6 +21,7 @@ namespace Tanks.Classes
             armor = r.Next(1, 100);
             ammo = r.Next(1, 100);
             manuvr = r.Next(1, 100);
+            Thread.Sleep(29);
         }
         public string Name
         {
@@ -49,10 +51,21 @@ namespace Tanks.Classes
                 return manuvr;
             }
         }
-        public static bool operator*(Tank obj)
+        public static bool operator*(Tank obj1, Tank obj2)
         {
-
-            return true;
+            if(obj1.Ammo > obj2.Ammo && obj1.Armor > obj2.Armor)
+                return true;
+            if(obj1.Ammo > obj2.Ammo && obj1.Manuvr > obj2.Manuvr)
+                return true;
+            if (obj1.Armor > obj2.Armor && obj1.Manuvr > obj2.Manuvr)
+                return true;
+            return false;
         }
+        public override string ToString()
+        {
+            return $"{_name}  ammo:{ammo},  armor:{armor},  manuvr:{manuvr}";
+
+        }
+
     }
 }
